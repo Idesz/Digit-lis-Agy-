@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 from src.core.dataset import get_neuromorphic_dataloader
 from src.core.pipeline import NeuromorphicCognitivePipeline
+from src.dashboard.monitor import global_monitor
 
 
 def main():
@@ -74,6 +75,21 @@ def main():
 
         for batch_idx, (inputs, targets) in enumerate(loader):
             stats = agent.process_batch(inputs, targets, train_step=True)
+
+            cur_v = stats["state_vector"]
+            global_monitor.update({
+                "curiosity": cur_v[0],
+                "error_rate": cur_v[1],
+                "resource_stress": cur_v[2],
+                "uncertainty": cur_v[3],
+                "behavioral_mode": stats["behavioral_mode"],
+                "last_route": stats["route"],
+                "last_accuracy": stats["accuracy"],
+                "last_surprise": stats["surprise"],
+                "episodic_events_count": len(agent.episodic_mem.retrieve_recent(1000)),
+                "semantic_concepts_count": agent.semantic_mem.num_concepts(),
+                "log": f"Epoch {epoch} Batch {batch_idx+1}: Acc {stats['accuracy']*100:.1f}%, Route {stats['route']}",
+            })
 
             epoch_acc.append(stats["accuracy"])
             epoch_surprises.append(stats["surprise"])
