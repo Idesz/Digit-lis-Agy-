@@ -22,6 +22,7 @@ import time
 class Node:
     """
     A gráf egy csomópontját (neuront vagy elvont fogalmat) reprezentáló adatosztály.
+
     
     Attributes:
         node_id: A csomópont egyedi azonosítója.
@@ -37,6 +38,7 @@ class Node:
 class Edge:
     """
     Két csomópont közötti szinaptikus kapcsolatot reprezentáló adatosztály.
+
     
     Attributes:
         source_id: A forrás csomópont azonosítója.
@@ -105,6 +107,7 @@ class SynapticGraphManager:
     def update_local_learning(self, node_a: str, node_b: str, time_window: float = 0.5) -> None:
         """
         Hebb-féle helyi tanulási szabály végrehajtása.
+
         
         Tiszta elválasztást biztosít az élek inicializálása és a Hebb-féle frissítés között.
         Ha node_a és node_b a megadott 'time_window' időablakon belül mindketten aktiválódtak,
@@ -128,6 +131,7 @@ class SynapticGraphManager:
         # Ha mindkét csomópont aktiválódott az időablakon belül
         if history_a and history_b:
             edge_key = f"{node_a}->{node_b}"
+
             
             if edge_key not in self.edges:
                 # Új él inicializálása alapértelmezett kezdősúllyal
@@ -357,6 +361,7 @@ from typing import Dict, Any
 class GlobalStateVector:
     """
     A rendszer belső homeosztatikus mutatóit tároló állapotvektor.
+
     
     Attributes:
         curiosity: Kíváncsiság szintje (0.0 - 1.0).
@@ -410,6 +415,7 @@ class HomeostaticController:
     def evaluate_and_modulate(self) -> Dict[str, Any]:
         """
         Kiértékeli a küszöbértékeket, és meghozza a modulációs intézkedéseket.
+
         
         A visszatérési értékek közvetlenül modulálják az architektúra többi modulját.
         Például ha a 'trigger_safety_protocol' True, a DualProcessRouter konfidencia-küszöbértéke
@@ -680,6 +686,7 @@ class DualProcessRouter:
             Dict[str, Any]: A végrehajtási út és a generált válasz.
         """
         fast_result = self.system1.generate_fast_response(task)
+
         
         # Konfidencia ellenőrzése (dinamikus moduláció figyelembevételével)
         if self.evaluator.is_confident(fast_result["confidence"], custom_threshold=dynamic_threshold_override):
@@ -737,6 +744,7 @@ class JEPASandboxWorldModel:
         for key, value in raw_state.items():
             # Absztrakciós leképezés a fogalmi térbe
             abstract_representation[f"abstract_{key}"] = hash(str(value)) % 1000
+
         
         self.current_abstract_state = abstract_representation
         return abstract_representation
@@ -785,6 +793,7 @@ class JEPASandboxWorldModel:
                     risk_score += 0.20 * step
                 else:
                     risk_score += 0.02 * step
+
                 
                 utility_score += 0.15 * step
 
