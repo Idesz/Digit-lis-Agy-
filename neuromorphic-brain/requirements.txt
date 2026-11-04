@@ -1,0 +1,9 @@
+torch>=2.1.0
+torchvision
+numpy
+qdrant-client
+redis
+networkx
+pydantic
+scikit-learn
+pytest
