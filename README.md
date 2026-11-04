@@ -71,20 +71,24 @@ A hybrid neuromorphic cognitive framework based on local learning, spiking neura
 
 ### 1. Native Python Environment
 
-```bash
-# Clone and enter the project folder
-cd neuromorphic-brain
+On Windows, install **Python 3.11 x64** from [python.org](https://www.python.org/downloads/windows/). In the installer, select **Add python.exe to PATH** and include the Python Launcher. Close and reopen PowerShell or the VS Code terminal.
 
-# Install dependencies (PyTorch, Qdrant, Redis, NetworkX, FastAPI, etc.)
-pip install -r requirements.txt
+From the repository root, create a virtual environment and install the dependencies:
 
-# Run the complete cognitive training & sleep consolidation cycle
-python train.py
-
-# Launch the live Real-Time Web & Terminal Dashboard
-python dashboard_app.py --port 8000
+```powershell
+Set-Location .\neuromorphic-brain
+py -3.15 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
-Open your browser at `http://localhost:8000` to view real-time state vectors, live decision routes, memory logs, and interactive controls!
+
+Start the dashboard:
+
+```powershell
+.\.venv\Scripts\python.exe dashboard_app.py --port 8000 --no-tui
+```
+
+Keep the terminal open and visit <http://localhost:8000>. Press Ctrl+C in the terminal to stop the dashboard. To run the training cycle instead, use `.\.venv\Scripts\python.exe train.py`.
 
 ### 2. Docker & Docker Compose
 
