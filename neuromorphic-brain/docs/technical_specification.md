@@ -173,3 +173,4 @@ Cselekvés végrehajtása : A kiválasztott optimális és biztonságos cselekv�
 Epizodikus mentés : Az esemény, a válasz és a környezeti válaszreakció eltárolása a Qdrant vektor-adatbázisban időbélyeggel és beágyazási vektorral.
 Hebb-frissítés : A Memgraph tudásgráfban az egyidejűleg aktiválódott csomópontok közötti  $w_{ij}$  élsúlyok frissítése a  $\Delta w_{ij} = \eta \cdot a_i \cdot a_j - \gamma \cdot w_{ij}$  szabály szerint.
 Alvási konszolidáció : A terhelés lecsökkenésekor a Ray háttér-worker lefutása: az epizodikus emlékek átfésülése, a redundanciák összevonása, a  $w_{ij} < w_{\text{threshold}}$  élek nyesése (pruning) és a szemantikus tudásgráf frissítése.
+

@@ -23,6 +23,7 @@ class Node:
     """
     A gráf egy csomópontját (neuront vagy elvont fogalmat) reprezentáló adatosztály.
 
+    
     Attributes:
         node_id: A csomópont egyedi azonosítója.
         activation_history: Az aktivációk időbélyegeit tartalmazó lista.
@@ -38,6 +39,7 @@ class Edge:
     """
     Két csomópont közötti szinaptikus kapcsolatot reprezentáló adatosztály.
 
+    
     Attributes:
         source_id: A forrás csomópont azonosítója.
         target_id: A cél csomópont azonosítója.
@@ -106,6 +108,7 @@ class SynapticGraphManager:
         """
         Hebb-féle helyi tanulási szabály végrehajtása.
 
+        
         Tiszta elválasztást biztosít az élek inicializálása és a Hebb-féle frissítés között.
         Ha node_a és node_b a megadott 'time_window' időablakon belül mindketten aktiválódtak,
         az él létrejön (ha nem létezett) vagy a meglévő él súlya növekszik a Hebb-szabály szerint.
@@ -129,6 +132,7 @@ class SynapticGraphManager:
         if history_a and history_b:
             edge_key = f"{node_a}->{node_b}"
 
+            
             if edge_key not in self.edges:
                 # Új él inicializálása alapértelmezett kezdősúllyal
                 self.edges[edge_key] = Edge(
@@ -358,6 +362,7 @@ class GlobalStateVector:
     """
     A rendszer belső homeosztatikus mutatóit tároló állapotvektor.
 
+    
     Attributes:
         curiosity: Kíváncsiság szintje (0.0 - 1.0).
         error_rate: Hibaarány / meglepetés mértéke (0.0 - 1.0).
@@ -411,6 +416,7 @@ class HomeostaticController:
         """
         Kiértékeli a küszöbértékeket, és meghozza a modulációs intézkedéseket.
 
+        
         A visszatérési értékek közvetlenül modulálják az architektúra többi modulját.
         Például ha a 'trigger_safety_protocol' True, a DualProcessRouter konfidencia-küszöbértéke
         megemelkedik (pl. 0.95-re), letiltva a gyors felületes döntéseket.
@@ -681,6 +687,7 @@ class DualProcessRouter:
         """
         fast_result = self.system1.generate_fast_response(task)
 
+        
         # Konfidencia ellenőrzése (dinamikus moduláció figyelembevételével)
         if self.evaluator.is_confident(fast_result["confidence"], custom_threshold=dynamic_threshold_override):
             return {
@@ -738,6 +745,7 @@ class JEPASandboxWorldModel:
             # Absztrakciós leképezés a fogalmi térbe
             abstract_representation[f"abstract_{key}"] = hash(str(value)) % 1000
 
+        
         self.current_abstract_state = abstract_representation
         return abstract_representation
 
@@ -786,6 +794,7 @@ class JEPASandboxWorldModel:
                 else:
                     risk_score += 0.02 * step
 
+                
                 utility_score += 0.15 * step
 
 
@@ -825,3 +834,6 @@ class JEPASandboxWorldModel:
         # A legmagasabb net_score-ral rendelkező (legbiztonságosabb és leghatékonyabb) út kiválasztása
         best_outcome = max(simulated_outcomes, key=lambda x: x["net_score"])
         return best_outcome
+
+
+
